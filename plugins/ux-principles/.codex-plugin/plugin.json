@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Apply cross-product UX principles to frontend features, product copy, forms, generated artifacts, previews, errors, loading states, accessibility, and other user-facing product surfaces.",
   "author": {
-    "name": "Codemonk Digital",
+    "name": "codemonk.digital",
     "url": "https://github.com/codemonk-digital"
   },
   "homepage": "https://github.com/codemonk-digital/ux-principles",
@@ -21,7 +21,7 @@
     "displayName": "UX Principles",
     "shortDescription": "Apply practical UX judgment to product work",
     "longDescription": "Use a lightweight, humane UX lens before designing, changing, reviewing, or explaining user-facing product work. Covers user control, save flows, generated artifacts, forms, loading and error states, accessibility, and product copy.",
-    "developerName": "Codemonk Digital",
+    "developerName": "codemonk.digital",
     "category": "Productivity",
     "capabilities": [
       "Interactive"

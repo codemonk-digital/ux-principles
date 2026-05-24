@@ -1,7 +1,7 @@
 {
   "name": "codemonk-digital",
   "interface": {
-    "displayName": "Codemonk Digital"
+    "displayName": "codemonk.digital"
   },
   "plugins": [
     {

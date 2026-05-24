@@ -1,0 +1,4 @@
+interface:
+  display_name: "UX principles"
+  short_description: "Apply cross-product UX principles"
+  default_prompt: "Use these UX principles while working on frontend, UX, copy, forms, generated artifacts, or user-facing product surfaces."

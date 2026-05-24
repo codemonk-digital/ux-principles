@@ -6,7 +6,7 @@ Each subdirectory is a self-contained, independently installable plugin.
 
 | Plugin | Description | Skills | Commands |
 | --- | --- | --- | --- |
-| `ux-principles` | Cross-product UX principles for frontend features, product copy, forms, generated artifacts, previews, errors, loading states, accessibility, and other user-facing product surfaces. | 1 | - |
+| `ux-principles` | Cross-product UX principles for frontend features, product copy, forms, generated artifacts, previews, errors, loading states, accessibility, and other user-facing product surfaces. | 1 | — |
 
 ## Plugin Structure
 
@@ -20,6 +20,8 @@ Each subdirectory is a self-contained, independently installable plugin.
     {skill-name}/
       SKILL.md
 ```
+
+Plugin manifests live in `.codex-plugin/` and `.claude-plugin/`. Do not add a duplicate root-level `plugin.json` unless a future runtime requires a third manifest shape.
 
 ## Installing Locally
 

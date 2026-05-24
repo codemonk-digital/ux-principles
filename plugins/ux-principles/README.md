@@ -28,6 +28,12 @@ Codex plugin metadata lives in:
 .codex-plugin/plugin.json
 ```
 
+The repository-level Codex marketplace is:
+
+```plain text
+../../.agents/plugins/marketplace.json
+```
+
 ## Synapse and Claude Code
 
 Synapse-compatible plugin metadata lives in:
@@ -36,8 +42,18 @@ Synapse-compatible plugin metadata lives in:
 .claude-plugin/plugin.json
 ```
 
+The repository-level Claude Code / Synapse marketplace is:
+
+```plain text
+../../.claude-plugin/marketplace.json
+```
+
 The skill itself lives at:
 
 ```plain text
 skills/ux-principles/SKILL.md
 ```
+
+## Manifest convention
+
+This plugin does not keep a root-level `plugin.json`. The Codex and Claude Code / Synapse manifests are separate on purpose so each runtime can read the shape it expects without duplicate root metadata drifting out of sync.

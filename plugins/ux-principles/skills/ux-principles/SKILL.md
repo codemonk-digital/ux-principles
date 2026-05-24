@@ -1,11 +1,24 @@
 ---
 name: ux-principles
-description: Apply cross-product UX principles when working on frontend features, UX decisions, user-facing copy, forms, autosave, editable surfaces, generated artifacts, previews, errors, loading states, accessibility, or any product surface a user directly interacts with.
+description: Use this skill when designing, changing, reviewing, or explaining user-facing product work. Covers frontend features, UX decisions, product copy, forms, autosave, editable surfaces, generated artifacts, previews, errors, loading states, accessibility, and interaction polish.
+license: MIT
+allowed-tools: []
+metadata:
+  author: Andrei Gheorghiu / codemonk.digital
+  version: "0.1.0"
 ---
 
 # UX principles
 
 Use this skill as a lightweight UX lens before designing, changing, reviewing, or explaining user-facing product work.
+
+## When to Activate
+
+- Designing, changing, or reviewing a user-facing product surface.
+- Writing or improving product copy, empty states, labels, errors, tooltips, or confirmation text.
+- Working on forms, autosave, editable surfaces, generated artifacts, previews, loading states, or failed states.
+- Reviewing frontend behavior where user work, system state, permissions, configuration, or accessibility could affect trust.
+- User says "review the UX", "make this clearer", "polish this flow", "check the copy", or asks for frontend/product judgment.
 
 ## How to apply
 
@@ -20,12 +33,51 @@ Before changing a user-facing surface, identify the interaction contract:
 
 Use these principles to shape implementation, product copy, review comments, and test coverage.
 
-## At a glance
+## Key Principles
 
 - Write like a helpful person: plain English, sentence case, and actions named after user intent.
 - Protect user work: user edits lead, generated artifacts need confirmation, and context should survive movement.
 - Make powerful tools humane: show configured features clearly, guide before blocking, and make errors useful.
 - Keep feedback close to the task: status, previews, motion, and accessibility are part of the interaction contract.
+
+## User Work Ownership Examples
+
+```typescript
+// BAD: A refetch can overwrite the user's in-progress draft.
+const [title, setTitle] = useState(reportQuery.data.title);
+useEffect(() => {
+  setTitle(reportQuery.data.title);
+}, [reportQuery.data.title]);
+
+// GOOD: Server state hydrates once; the user-controlled draft leads after editing.
+const [draftTitle, setDraftTitle] = useState("");
+const [isDirty, setIsDirty] = useState(false);
+useEffect(() => {
+  if (!isDirty) setDraftTitle(reportQuery.data.title);
+}, [reportQuery.data.title, isDirty]);
+```
+
+Check for:
+
+- Server acknowledgements, refetches, or retries that replace dirty user input.
+- Generated values that silently take ownership of user-authored text.
+- Save failures that roll back authored content instead of preserving the draft.
+
+## Product Copy Examples
+
+```plain text
+BAD: Submit
+GOOD: Create report
+
+BAD: Validation failed
+GOOD: Add a report name before creating it.
+```
+
+Check for:
+
+- Button text that describes implementation mechanics instead of user intent.
+- Errors that omit what happened, what the user can do next, or whether their work is safe.
+- Title case, jargon, raw identifiers, or stack traces in non-developer surfaces.
 
 ## Product posture
 
@@ -173,3 +225,23 @@ Respect reduced-motion preferences.
 ### Accessibility is part of the interaction contract
 
 Copy, keyboard flow, focus, contrast, motion, loading states, and error recovery should be considered while designing behavior, not after the feature is visually complete.
+
+## Verification Checklist
+
+- [ ] The user-facing action is named after the user's intent.
+- [ ] User-authored work is preserved across saves, refetches, retries, and failures.
+- [ ] Generated or template-derived artifacts require explicit confirmation before meaningful persistence.
+- [ ] Loading, saving, empty, failed, and disabled states are clear and local to the task.
+- [ ] Errors explain what happened, what the user can do next, and whether their work is safe.
+- [ ] Keyboard flow, focus, contrast, motion, and accessible names were considered.
+- [ ] Tests cover fragile ownership, save, preview, or error-recovery behavior when relevant.
+
+## Platform Notes
+
+This skill is platform-agnostic. In Codex, Claude Code, Synapse, or another agent runtime, map the workflow to the local tool names and permissions available in that environment.
+
+## Resources
+
+| Type | Location | Description | Used for |
+| --- | --- | --- | --- |
+| repository | `https://github.com/codemonk-digital/ux-principles` | Open source home for this skill and plugin package | Installation, updates, and contribution context |

@@ -40,6 +40,10 @@ expectFile("plugins/README.md");
 expectFile("plugins/ux-principles/README.md");
 expectFile("plugins/ux-principles/skills/ux-principles/SKILL.md");
 
+if (fs.existsSync(path.join(pluginRoot, "plugin.json"))) {
+  fail("plugins/ux-principles/plugin.json should not exist; use .codex-plugin/plugin.json and .claude-plugin/plugin.json");
+}
+
 const codexPlugin = readJson("plugins/ux-principles/.codex-plugin/plugin.json");
 expectEqual(codexPlugin.name, pluginName, "Codex plugin name");
 expectEqual(codexPlugin.skills, "./skills/", "Codex plugin skills path");
@@ -68,8 +72,48 @@ if (fs.existsSync(skillPath)) {
   const frontmatterMatch = skillContent.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!frontmatterMatch) {
     fail("Skill is missing YAML frontmatter");
-  } else if (!frontmatterMatch[1].match(/^name:\s*ux-principles\s*$/m)) {
-    fail("Skill frontmatter name must match skills/ux-principles");
+  } else {
+    const frontmatter = frontmatterMatch[1];
+    const requiredFrontmatter = [
+      [/^name:\s*ux-principles\s*$/m, "Skill frontmatter name must match skills/ux-principles"],
+      [/^description:\s*Use this skill when /m, "Skill frontmatter description must start with 'Use this skill when'"],
+      [/^license:\s*MIT\s*$/m, "Skill frontmatter license must be MIT"],
+      [/^allowed-tools:\s*\[\]\s*$/m, "Skill frontmatter allowed-tools must be []"],
+      [/^metadata:\s*$/m, "Skill frontmatter metadata block is missing"],
+      /^\s+author:\s*Andrei Gheorghiu \/ codemonk\.digital\s*$/m,
+      /^\s+version:\s*"0\.1\.0"\s*$/m,
+    ];
+
+    for (const requirement of requiredFrontmatter) {
+      const [pattern, message] = Array.isArray(requirement)
+        ? requirement
+        : [requirement, `Skill frontmatter is missing ${requirement}`];
+      if (!pattern.test(frontmatter)) {
+        fail(message);
+      }
+    }
+  }
+
+  const requiredSections = [
+    "## When to Activate",
+    "## Key Principles",
+    "## User Work Ownership Examples",
+    "## Product Copy Examples",
+    "## Verification Checklist",
+    "## Platform Notes",
+    "## Resources",
+  ];
+
+  for (const section of requiredSections) {
+    if (!skillContent.includes(section)) {
+      fail(`Skill is missing required section: ${section}`);
+    }
+  }
+
+  for (const exampleMarker of ["BAD:", "GOOD:"]) {
+    if (!skillContent.includes(exampleMarker)) {
+      fail(`Skill examples are missing marker: ${exampleMarker}`);
+    }
   }
 
   const rootSkill = fs.readFileSync(path.join(root, "SKILL.md"), "utf8");

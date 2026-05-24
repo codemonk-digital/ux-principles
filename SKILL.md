@@ -59,11 +59,11 @@ Design for mixed expertise. The common path should be safe, obvious, and approac
 
 ### User edits are sovereign
 
-User-authored edits are the highest-priority state in an editable surface.
+Treat the user's current edits as the highest-priority state in any editable surface.
 
-Losing edits is not a small UI bug. It tells the user their work may disappear without warning, and that damages trust.
+When someone types into a form, they are creating work. It may be a short sentence, a detailed note, a pasted analysis, or a carefully revised explanation. Losing that work is not a small UI bug; it tells the user the product may discard their effort without warning, and that breaks trust.
 
-Server data may hydrate a form, acknowledge a save, reject a save, or offer a newer value. It must not silently overwrite text, selections, cursor position, unsaved field values, or in-progress form state once the user has started editing.
+Server data may hydrate a form, acknowledge a save, reject a save, or offer a newer value. It must not silently overwrite text, selections, cursor position, unsaved field values, or in-progress form state once the user has started editing. Persistence should work around the user's draft, not take authority over it.
 
 Default pattern:
 
@@ -82,7 +82,19 @@ draft: user-controlled editable state
 saveState: idle | saving | saved | failed
 ```
 
-Save success should update status and the clean baseline without replacing the visible draft. Save failure should show a problem and leave the draft untouched. Dirty fields should only rehydrate by explicit user action, such as reload, refresh, discard, reopen, or another clearly intentional path.
+On initial load, server data may populate the draft. After the user edits, inputs should bind to the draft, not directly to a server query result. Save success should update status and the clean baseline without replacing the visible draft, moving the cursor, changing selection, or reformatting visible text. Save failure should show a problem and leave the draft untouched.
+
+Dirty fields should only rehydrate through explicit user action, such as reload, refresh, discard, reopen, or another clearly intentional path. External refetches may update safe non-dirty fields, but should never silently replace dirty user input. If remote data differs, show that newer data is available and let the user decide.
+
+Rollback is not the default for authored input. It can make sense for simple reversible actions, such as toggling a star or moving a card. For text and form drafts, rollback means destroying work. Preserve the draft, explain the save problem, and provide retry, refresh, or discard where appropriate.
+
+Important editable forms should cover these regressions:
+
+- User types while save is in flight; the response returns; the field still contains the latest text.
+- Cursor and selection survive save acknowledgement.
+- Failed save leaves the field value unchanged.
+- Out-of-order saves do not let an older response overwrite a newer draft.
+- Explicit refresh or discard is the only path that replaces dirty values.
 
 ### Working copies beat surprise autosave for complex content
 

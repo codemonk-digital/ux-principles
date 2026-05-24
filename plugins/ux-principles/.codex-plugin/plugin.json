@@ -1,0 +1,40 @@
+{
+  "name": "ux-principles",
+  "version": "0.1.0",
+  "description": "Apply cross-product UX principles to frontend features, product copy, forms, generated artifacts, previews, errors, loading states, accessibility, and other user-facing product surfaces.",
+  "author": {
+    "name": "Codemonk Digital",
+    "url": "https://github.com/codemonk-digital"
+  },
+  "homepage": "https://github.com/codemonk-digital/ux-principles",
+  "repository": "https://github.com/codemonk-digital/ux-principles",
+  "license": "MIT",
+  "keywords": [
+    "ux",
+    "product",
+    "frontend",
+    "copy",
+    "accessibility"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "UX Principles",
+    "shortDescription": "Apply practical UX judgment to product work",
+    "longDescription": "Use a lightweight, humane UX lens before designing, changing, reviewing, or explaining user-facing product work. Covers user control, save flows, generated artifacts, forms, loading and error states, accessibility, and product copy.",
+    "developerName": "Codemonk Digital",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/codemonk-digital/ux-principles",
+    "privacyPolicyURL": "https://github.com/codemonk-digital/ux-principles",
+    "termsOfServiceURL": "https://github.com/codemonk-digital/ux-principles/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Apply UX principles to this product change.",
+      "Review this user-facing flow for UX risks.",
+      "Improve this UI copy and interaction behavior."
+    ],
+    "brandColor": "#2563EB",
+    "screenshots": []
+  }
+}

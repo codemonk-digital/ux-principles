@@ -1,0 +1,19 @@
+{
+  "name": "@codemonk-digital/ux-principles",
+  "version": "0.1.0",
+  "description": "A Codex and Synapse-compatible UX principles plugin.",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate-plugin.mjs",
+    "validate": "node scripts/validate-plugin.mjs"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "skills",
+    "ux",
+    "product"
+  ],
+  "author": "Codemonk Digital",
+  "license": "MIT"
+}

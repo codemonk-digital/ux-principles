@@ -1,0 +1,20 @@
+{
+  "name": "codemonk-digital",
+  "interface": {
+    "displayName": "Codemonk Digital"
+  },
+  "plugins": [
+    {
+      "name": "ux-principles",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ux-principles"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # UX principles
 
-A small Codex skill for applying humane, cross-product UX principles while working on frontend features and user-facing product surfaces.
+A small Codex and Synapse-compatible plugin for applying humane, cross-product UX principles while working on frontend features and user-facing product surfaces.
 
 It is intentionally practical rather than exhaustive. The skill helps an agent pause before making user-facing changes and ask:
 
@@ -25,7 +25,44 @@ Use this skill when working on:
 
 ## Installation
 
-Install this repository as a Codex skill from GitHub once published, or copy the repository contents into a local Codex skills directory as `ux-principles`.
+This repository supports two installation shapes:
+
+- As a plain Codex skill from the root `SKILL.md`.
+- As a plugin marketplace containing `plugins/ux-principles`.
+
+### Codex plugin marketplace
+
+Codex-compatible plugin metadata is available at:
+
+```plain text
+.agents/plugins/marketplace.json
+plugins/ux-principles/.codex-plugin/plugin.json
+```
+
+The installable plugin is `ux-principles`.
+
+### Synapse / Claude Code marketplace
+
+Synapse-compatible marketplace metadata is available at:
+
+```plain text
+.claude-plugin/marketplace.json
+plugins/ux-principles/.claude-plugin/plugin.json
+```
+
+The skill itself lives at:
+
+```plain text
+plugins/ux-principles/skills/ux-principles/SKILL.md
+```
+
+### Validation
+
+Run the local structural validator with:
+
+```bash
+npm test
+```
 
 ## License
 
